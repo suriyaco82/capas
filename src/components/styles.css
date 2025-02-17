@@ -165,3 +165,35 @@ h2 {
 .toggle-filters-btn {
   margin-left: 8px; /* Espacio entre botones */
 }
+
+/* Estilos para el botón de cierre */
+.btn-danger {
+  background-color: #dc3545;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+.legend {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+
+.alert-info {
+  position: relative;
+}

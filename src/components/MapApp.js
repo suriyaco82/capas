@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
-import { MapContainer, TileLayer, GeoJSON, LayersControl } from "react-leaflet";
+import { MapContainer, TileLayer, GeoJSON, LayersControl, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -84,9 +84,12 @@ const MemoizedGeoJSON = React.memo(({ data, selectedFeatureIds, handleFeatureCli
 });
 
 // Componente para la leyenda del mapa temático
-const Legend = () => {
+const Legend = ({ onClose }) => {
   return (
-    <div className="legend">
+    <div className="legend position-absolute bottom-0 end-0 m-3 bg-white p-3 rounded shadow">
+      <button onClick={onClose} className="btn btn-sm btn-danger position-absolute top-0 end-0 m-1">
+        <i className="bi bi-x"></i>
+      </button>
       <h5>Leyenda</h5>
       <div><span style={{ backgroundColor: "#8B0000" }}></span>Deuda > 100,000</div>
       <div><span style={{ backgroundColor: "#FF0012" }}></span>Deuda 15,001 - 100,000</div>
@@ -117,8 +120,10 @@ const MapApp = () => {
   const [thematic, setThematic] = useState(false);
   const [popupData, setPopupData] = useState(null);
   const [alertMessage, setAlertMessage] = useState(null);
-  const [showFilters, setShowFilters] = useState(true); // Estado para controlar la visibilidad de los filtros
-  const mapRef = useRef(null); // Referencia al mapa para controlar el zoom
+  const [showFilters, setShowFilters] = useState(true);
+  const [showLegend, setShowLegend] = useState(true); // Estado para controlar la visibilidad de la leyenda
+  const mapRef = useRef(null);
+  const popupRef = useRef(null); // Referencia para el popup en móviles
 
   // Manejo de selección de archivo
   const handleFileSelect = (event) => {
@@ -207,9 +212,9 @@ const MapApp = () => {
         const layer = L.geoJSON(firstFeature);
         const bounds = layer.getBounds();
         if (mapRef.current) {
-          mapRef.current.flyToBounds(bounds, { padding: [50, 50] }); // Ajustar el zoom con un padding
+          mapRef.current.flyToBounds(bounds, { padding: [50, 50] });
         }
-        setPopupData(firstFeature.properties); // Mostrar los datos del polígono encontrado
+        setPopupData(firstFeature.properties);
       }
     }
   }, [codSerFilter, barrioFilter, calleFilter, unidadFilter, saldoFilter, layers]);
@@ -217,6 +222,13 @@ const MapApp = () => {
   // Mostrar datos en ventana emergente al hacer clic en una parcela
   const handleFeatureClick = useCallback((feature) => {
     setPopupData(feature.properties);
+    if (window.innerWidth <= 768 && feature.geometry) {
+      const layer = L.geoJSON(feature);
+      const bounds = layer.getBounds();
+      if (mapRef.current) {
+        mapRef.current.flyToBounds(bounds, { padding: [50, 50] });
+      }
+    }
   }, []);
 
   // Obtener las características filtradas
@@ -363,7 +375,7 @@ const MapApp = () => {
             center={[-29.442260, -66.870089]}
             zoom={14}
             style={{ height: "600px", width: "100%" }}
-            ref={mapRef} // Referencia al mapa
+            ref={mapRef}
           >
             <LayersControl position="topright">
               <BaseLayer checked name="Mapa Base">
@@ -386,25 +398,27 @@ const MapApp = () => {
                 </Overlay>
               ))}
             </LayersControl>
-            {thematic && <Legend />}
+            {thematic && showLegend && <Legend onClose={() => setShowLegend(false)} />}
           </MapContainer>
         </div>
-        <div className="col-md-4">
-  {popupData && (
-    <div className="alert alert-info position-relative">
-      <h5>Datos de la Parcela</h5>
-      <button
-        onClick={() => setPopupData(null)} // Cerrar la ventana emergente
-        className="btn btn-sm btn-danger position-absolute top-0 end-0 m-2"
-      >
-        <i className="bi bi-x"></i> {/* Ícono de cierre */}
-      </button>
-      {Object.entries(popupData).map(([key, value]) => (
-        <p key={key}><b>{key}:</b> {value}</p>
-      ))}
-            </div>
-          )}
-        </div>
+        {window.innerWidth > 768 && (
+          <div className="col-md-4">
+            {popupData && (
+              <div className="alert alert-info position-relative">
+                <h5>Datos de la Parcela</h5>
+                <button
+                  onClick={() => setPopupData(null)}
+                  className="btn btn-sm btn-danger position-absolute top-0 end-0 m-2"
+                >
+                  <i className="bi bi-x"></i>
+                </button>
+                {Object.entries(popupData).map(([key, value]) => (
+                  <p key={key}><b>{key}:</b> {value}</p>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
