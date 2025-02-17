@@ -1,0 +1,81 @@
+/* Estilos para MapApp */
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+  }
+  
+  /* Mapa */
+  .map-container {
+    height: 500px;
+    width: 100%;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    margin-top: 20px;
+  }
+  
+  /* Controles */
+  .controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .controls input {
+    width: 100%;
+  }
+  
+  .controls button {
+    width: 100%;
+  }
+  
+  /* Filtros */
+  .filters {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .filters input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  /* Botón Deseleccionar */
+  .btn-danger {
+    margin-top: 15px;
+  }
+  
+  /* Mejorar tabla de selección */
+  .data-table {
+    margin-top: 20px;
+    overflow-x: auto;
+  }
+  
+  .data-table table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .data-table th,
+  .data-table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .data-table th {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .data-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .data-table tbody tr:hover {
+    background-color: #ddd;
+  }
+  

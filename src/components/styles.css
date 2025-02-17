@@ -1,0 +1,167 @@
+/* Estilos generales */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 100%;
+  padding: 20px;
+}
+
+h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Estilos para el mapa */
+.leaflet-container {
+  height: 500px; /* Altura inicial para móviles */
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Media Queries para pantallas más grandes */
+@media (min-width: 768px) {
+  .leaflet-container {
+    height: 700px; /* Altura para tablets y escritorio */
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .col-md-8 {
+    padding-right: 20px;
+  }
+
+  .col-md-4 {
+    padding-left: 20px;
+  }
+}
+
+/* Media Queries para pantallas pequeñas */
+@media (max-width: 767px) {
+  .leaflet-container {
+    height: 400px; /* Altura para móviles */
+  }
+
+  .col-md-8,
+  .col-md-4 {
+    padding: 0;
+  }
+
+  .legend {
+    bottom: 10px;
+    right: 10px;
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .legend h5 {
+    font-size: 14px;
+  }
+
+  .legend span {
+    width: 15px;
+    height: 15px;
+  }
+}
+
+/* Media Queries para pantallas muy pequeñas */
+@media (max-width: 480px) {
+  .leaflet-container {
+    height: 300px; /* Altura para móviles pequeños */
+  }
+
+  .legend {
+    bottom: 5px;
+    right: 5px;
+    padding: 5px;
+    font-size: 10px;
+  }
+
+  .legend h5 {
+    font-size: 12px;
+  }
+
+  .legend span {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+/* Estilos para los botones */
+.btn {
+  margin-right: 8px; /* Espacio entre botones */
+  margin-bottom: 8px; /* Espacio en la parte inferior para móviles */
+}
+
+.btn-info {
+  padding: 6px 12px; /* Ajuste de padding para el botón de filtros */
+}
+
+.btn-info i {
+  margin-right: 0; /* Eliminar margen derecho del ícono */
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 767px) {
+  .btn {
+    width: 100%; /* Botones ocupen el ancho completo en móviles */
+    margin-right: 0; /* Eliminar margen derecho en móviles */
+  }
+
+  .btn-info {
+    width: auto; /* Ancho automático para el botón de filtros */
+  }
+}
+
+/* Estilos para la leyenda */
+.legend {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+
+.legend h5 {
+  margin: 0 0 10px 0;
+  font-size: 16px;
+}
+
+.legend div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.legend span {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  border: 1px solid #ccc;
+}
+
+/* Estilos para el contenedor de filtros */
+.filters-container {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para el botón de mostrar/ocultar filtros */
+.toggle-filters-btn {
+  margin-left: 8px; /* Espacio entre botones */
+}
